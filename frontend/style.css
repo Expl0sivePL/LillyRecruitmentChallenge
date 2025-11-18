@@ -29,4 +29,11 @@ body {
     height: 30px;
 }
 
+
+
 /* ---- Your custom styles below ---- */
+* {
+    margin: 0;
+    padding: 0;
+}
+
