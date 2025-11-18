@@ -1,10 +1,10 @@
 async function loadMedicines() {
     try {
-        const response = await fetch('http://localhost:3000/medicines');
+        const response = await fetch('http://localhost:8000/medicines');
         const data = await response.json();
 
-        const listMedicine = document.getElementById('medicine-list');
-        listMedicine.innerHTML = '';
+        const list = document.getElementById('medicine-list');
+        list.innerHTML = '';
 
         
         data.medicines.forEach(med => {
