@@ -32,6 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/medicines")
 def get_all_meds():
     """
@@ -125,6 +126,28 @@ def delete_med(name: str = Form(...)):
     return {"error": "Medicine not found"}
 
 # Add your average function here
+@app.get("/average")
+def average_price():
 
+    with open('data.json' , 'r') as meds:
+        current_db = json.load(meds)
+        total = len(current_db["medicines"])
+        
+
+        prices = []
+        for med in current_db["medicines"]:
+            value = med.get("price")
+            if isinstance(value, (int, float)):
+                prices.append(value)
+            
+            if not prices:
+                return {"average": 0}
+            
+            average_price = 0
+
+            averagePrice = sum(prices) / total
+        
+    return {"average": averagePrice}
+        
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

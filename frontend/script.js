@@ -17,7 +17,7 @@ function validateMedicineName(med) {
     if (typeof med.price === 'number' && med.price >= 0) {
         price = `$${med.price.toFixed(2)}`;
     } else {
-        price = "No price available";
+        price = "No price available"
     }
 
     return { name, price };
@@ -38,7 +38,7 @@ async function loadMedicines() {
             list.innerHTML += `
                 <div>
                     <strong>${med.name}</strong> - ${med.price ?? "No price available"}
-                </div>`;
+                </di>`;
         });
 
     } catch (err) {
@@ -77,7 +77,26 @@ function addMedicine() {
         } catch (err) {
             console.error("Failed to add medicine:", err);
             alert("Error adding medicine. Please try again.");
-    };
+        };
     });
 }
 addMedicine();
+
+async function displayAverage() {
+    const avgDiv = document.getElementById('average-price');
+    avgDiv.innerHTML = '';
+
+   try {
+        const response = await fetch('http://localhost:8000/average')
+        const data = await response.json();
+        
+        const average = document.createElement('p');
+        average.textContent = `Average Price: $${data.average.toFixed(2)}`;
+        avgDiv.appendChild(average);
+
+   } catch (err) {
+        console.error("Failed to fetch average price:", err);
+        avgDiv.innerHTML = "<p style='color:red;'>Unable to load average price.</p>";
+   }
+};
+displayAverage();
