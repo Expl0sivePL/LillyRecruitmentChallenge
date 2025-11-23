@@ -29,15 +29,18 @@ async function loadMedicines() {
         const response = await fetch('http://localhost:8000/medicines');
         const data = await response.json();
 
+        const medicines = [];
+
         const list = document.getElementById('medicine-list');
         list.innerHTML = '';
 
         
         data.medicines.forEach(rawMed => {
             const med = validateMedicineName(rawMed);
+            medicines.push(med);
             list.innerHTML += `
                 <div>
-                    <strong>${med.name}</strong> - ${med.price ?? "No price available"}
+                    <strong>${med.name}</strong> - ${med.price}"}
                 </di>`;
         });
 
